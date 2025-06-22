@@ -21,13 +21,13 @@ jobs:
 
       - name: Build and Push Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_RUN_SERVICE }} .
-          docker push gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_RUN_SERVICE }}
+          docker build -t asia-south1-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT }}/cloud-run-docker/ecommerce-backend .
+          docker push asia-south1-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT }}/cloud-run-docker/ecommerce-backend
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy ${{ secrets.GCLOUD_RUN_SERVICE }} \
-            --image gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_RUN_SERVICE }} \
+          gcloud run deploy ecommerce-backend \
+            --image asia-south1-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT }}/cloud-run-docker/ecommerce-backend \
             --region ${{ secrets.GCLOUD_REGION }} \
             --platform managed \
             --allow-unauthenticated
